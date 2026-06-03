@@ -15,7 +15,7 @@ class Video {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$userId, $title, $description, $videoPath, $thumbnailPath]);
     }
-
+//jhggj
     // Alle videos ophalen voor mainpage
     public function getAllVideos() {
         $sql = "SELECT v.*, u.username FROM videos v JOIN users u ON v.user_id = u.user_id ORDER BY v.uploaded_at DESC";
