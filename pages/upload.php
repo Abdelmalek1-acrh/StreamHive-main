@@ -15,21 +15,26 @@ require_once __DIR__ . '/../app/services/AuthService.php';
 // Controleer of de gebruiker ingelogd is
 $authService = new AuthService();
 if (!$authService->isLoggedIn()){
-    header('location: login.php');
+    header('Location: login.php');
     exit();
 }
 
 // Als het formulier is ingediend, upload de video
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $videoService = new VideoService();
-    // Stuur gebruiker ID, titel, beschrijving, video en thumbnail naar de service
-    $videoService->uploadVideo(
-        $_SESSION['user_id'],
-        $_POST['title'],
-        $_POST['description'],
-        $_FILES['video'],
-        $_FILES['thumbnail']
+    $result = $videoService->uploadVideo(
+        $_SESSION['user_id'],   // wie uploadt? → ingelogde user
+        $_POST['title'],        // titel uit formulier
+        $_POST['description'],  // beschrijving uit formulier
+        $_FILES['video'],       // video bestand
+        $_FILES['thumbnail']    // thumbnail bestand
     );
+
+    // Na upload doorsturen naar homepage
+    if ($result) {
+        header('Location: index.php');
+        exit();
+    }
 }
 ?>
 

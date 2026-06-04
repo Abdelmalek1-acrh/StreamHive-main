@@ -4,7 +4,7 @@ require_once __DIR__ . '/../models/Video.php';
 class VideoService {
 
     private $videoModel;
-
+    // public function 
     public function __construct() {
         $this->videoModel = new Video();
     }

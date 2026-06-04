@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/../app/services/AuthService.php'; ?>
+<?php 
+session_start();
+require_once __DIR__ . '/../app/services/AuthService.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
