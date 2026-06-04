@@ -12,20 +12,28 @@
 require_once __DIR__ . '/../app/services/VideoService.php';
 require_once __DIR__ . '/../app/services/AuthService.php';
 
+// Controleer of de gebruiker ingelogd is
 $authService = new AuthService();
 if (!$authService->isLoggedIn()){
     header('location: login.php');
     exit();
 }
 
-
-
+// Als het formulier is ingediend, upload de video
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $videoService = new VideoService();
-    $videoService->uploadVideo($_SESSION['user_id'], $_POST['title'], $_POST['description'], $_FILES['video'], $_FILES['thumbnail']);
+    // Stuur gebruiker ID, titel, beschrijving, video en thumbnail naar de service
+    $videoService->uploadVideo(
+        $_SESSION['user_id'],
+        $_POST['title'],
+        $_POST['description'],
+        $_FILES['video'],
+        $_FILES['thumbnail']
+    );
 }
 ?>
 
+    <!-- Upload formulier met enctype voor bestanden -->
     <form method="POST" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Titel">
         <input type="text" name="description" placeholder="Beschrijving">
