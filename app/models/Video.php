@@ -39,5 +39,28 @@ class Video {
         $stmt->execute([$userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+
+   // Verhoogt het aantal views met 1
+    public function incrementViews($videoId) {
+        $sql = "UPDATE videos SET views = views + 1 WHERE video_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$videoId]);
+    }
+
+    // Zoek videos op titel of beschrijving
+    public function search($query) {
+        $sql = "SELECT v.*, u.username 
+            FROM videos v 
+            JOIN users u ON v.user_id = u.user_id 
+            WHERE v.title LIKE ? OR v.description LIKE ?
+            ORDER BY v.uploaded_at DESC";
+     $stmt = $this->pdo->prepare($sql);
+     $searchTerm = '%' . $query . '%'; // Zoek op alles wat de zoekterm bevat, ook als het midden in een woord zit
+     $stmt->execute([$searchTerm, $searchTerm]);
+     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

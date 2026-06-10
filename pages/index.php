@@ -39,6 +39,12 @@ $isLoggedIn = $authService->isLoggedIn();
             <p>Deel je video's met de wereld</p>
         </div>
 
+        <!-- Zoekbalk -->
+        <form method="GET" action="search.php" style="text-align: center; margin: 20px 0;">
+            <input type="text" name="q" placeholder="Zoek een video..." style="padding: 8px; width: 300px;">
+            <button type="submit" style="padding: 8px 16px;">Zoeken</button>
+        </form>
+
         <div class="video-grid">
             <?php if (empty($videos)): ?>
                 <div class="no-videos">
